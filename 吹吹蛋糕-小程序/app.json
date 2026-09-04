@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/create/create",
+    "pages/view/view",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFD5CC",
+    "navigationBarTitleText": "吹吹蛋糕",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF6F2"
+  },
+  "style": "v2",
+  "cloud": true,
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.record": {
+      "desc": "用于接收你对蜡烛吹气，来把蜡烛吹灭 🎂"
+    },
+    "scope.writePhotosAlbum": {
+      "desc": "用于把祝福卡片保存到你的相册，留作纪念"
+    }
+  }
+}

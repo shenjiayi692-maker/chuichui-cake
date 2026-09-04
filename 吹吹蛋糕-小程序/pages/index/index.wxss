@@ -1,0 +1,109 @@
+.index {
+  background: linear-gradient(180deg, #FFE6EA 0%, #FFF6F2 360rpx);
+}
+
+.hero {
+  text-align: center;
+  padding: 32rpx 0 48rpx;
+}
+
+.hero-cake {
+  font-size: 120rpx;
+  line-height: 1;
+  margin-bottom: 24rpx;
+  animation: floatY 3s ease-in-out infinite;
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12rpx); }
+}
+
+.quick-card {
+  margin-bottom: 48rpx;
+}
+
+.quick-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--choco);
+  margin-bottom: 16rpx;
+}
+
+.quick-desc {
+  color: var(--muted);
+  font-size: 26rpx;
+  line-height: 1.7;
+  margin-bottom: 32rpx;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 24rpx;
+}
+
+.quick-actions .btn {
+  flex: 1;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: var(--muted);
+  margin-bottom: 16rpx;
+  padding-left: 8rpx;
+}
+
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 28rpx;
+}
+
+.recent-emoji {
+  font-size: 48rpx;
+  margin-right: 20rpx;
+}
+
+.recent-meta {
+  flex: 1;
+}
+
+.recent-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.recent-date {
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-top: 6rpx;
+}
+
+.recent-arrow {
+  color: var(--muted);
+  font-size: 36rpx;
+  font-weight: 300;
+}
+
+.footnote {
+  text-align: center;
+  margin-top: 48rpx;
+  padding-bottom: 32rpx;
+}
+
+/* 重置微信 button 默认样式，让它和自定义 btn 类协调 */
+button.btn {
+  padding: 22rpx 0;
+  line-height: 1.2;
+  border-radius: 999rpx;
+}
+button.btn::after {
+  border: none;
+}

@@ -1,0 +1,97 @@
+<view
+  class="view-page {{phase}}"
+  style="background: linear-gradient(180deg, {{style.bgGradient[0]}} 0%, {{style.bgGradient[1]}} 100%);"
+>
+
+  <!-- 不存在 -->
+  <view wx:if="{{notFound}}" class="empty-state">
+    <view class="empty-emoji">🥲</view>
+    <view class="empty-title">蛋糕找不到啦</view>
+    <view class="empty-desc">可能已经过期或被删除。</view>
+    <button class="btn btn-ghost" bindtap="goHome">回首页</button>
+  </view>
+
+  <block wx:else>
+    <!-- 寿星名字 -->
+    <view class="nick-wrap">
+      <view class="nick-prefix">🎂 生日快乐</view>
+      <view class="nick">{{cake.receiverNick}}</view>
+    </view>
+
+    <!-- 蛋糕主体 -->
+    <view class="cake">
+      <view class="flames">
+        <view
+          wx:for="{{candleList}}"
+          wx:key="i"
+          class="candle-col"
+          style="--c: {{candleColor}};"
+        >
+          <view class="flame {{!item.lit ? 'out' : ''}}"></view>
+          <view wx:if="{{!item.lit}}" class="smoke"></view>
+          <view class="candle" style="background: {{candleColor}};"></view>
+        </view>
+      </view>
+      <view class="top" style="background: {{style.topColor}};"></view>
+      <view class="cream" style="background: {{style.creamColor}};"></view>
+      <view class="base" style="background: {{style.baseColor}};">
+        <text class="decor">{{style.decorEmoji}} {{style.decorEmoji}} {{style.decorEmoji}} {{style.decorEmoji}}</text>
+      </view>
+      <view wx:if="{{cake.style.candleCount > 20}}" class="age-badge">🎂 {{cake.style.candleCount}}</view>
+    </view>
+
+    <!-- 吹气提示 + 音量条 -->
+    <view wx:if="{{phase === 'ready'}}" class="start-hint">
+      <view class="start-emoji">💨</view>
+      <view class="start-title">点下方按钮，对着手机吹一吹</view>
+      <button class="btn" bindtap="handleStart">开始吹蜡烛</button>
+      <view class="hint fallback-tip">没有麦克风权限？可以长按下方按钮模拟吹气</view>
+    </view>
+
+    <view wx:elif="{{phase === 'blowing'}}" class="blow-hint">
+      <view class="vu-meter">
+        <view class="vu-bar" style="width: {{vuPercent}}%;"></view>
+      </view>
+      <view wx:if="{{!fallbackMode}}" class="hint blow-text">
+        呼——往麦克风吹气 <text class="count">剩 {{remainLit}} 支</text>
+      </view>
+      <view wx:else
+        class="fallback-btn"
+        bindtouchstart="fallbackHold"
+        bindtouchend="fallbackRelease"
+      >
+        长按这里模拟吹气 💨（剩 {{remainLit}} 支）
+      </view>
+    </view>
+
+    <!-- 祝福揭示 -->
+    <view wx:if="{{phase === 'revealed'}}" class="reveal card">
+      <view class="reveal-confetti">🎉 🎊 🎂 🎈 🎁</view>
+      <view class="reveal-text">{{cake.content.text}}</view>
+
+      <view wx:if="{{cake.content.voicePath}}" class="reveal-voice" bindtap="playVoice">
+        <view class="voice-play {{voicePlaying ? 'playing' : ''}}">{{voicePlaying ? '⏸' : '▶'}}</view>
+        <view class="voice-label">
+          <view>{{voicePlaying ? '播放中…' : '播放语音祝福'}}</view>
+          <view class="hint">{{cake.content.voiceDuration}}″</view>
+        </view>
+      </view>
+
+      <view class="reveal-actions">
+        <button class="btn" open-type="share">📤 分享给TA</button>
+        <button class="btn btn-ghost" bindtap="saveCard">💾 保存卡片</button>
+      </view>
+      <view wx:if="{{isPreview}}" class="hint preview-tip">
+        （这是你作为送方的预览。真正的生日当天，TA打开会看到同样的画面。）
+      </view>
+    </view>
+  </block>
+</view>
+
+<!-- 用于 canvas 合成长图 -->
+<canvas
+  type="2d"
+  id="shareCanvas"
+  class="off-canvas"
+  style="width: 750rpx; height: 1334rpx;"
+></canvas>

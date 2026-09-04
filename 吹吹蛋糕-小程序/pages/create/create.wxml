@@ -1,0 +1,129 @@
+<view class="container create">
+
+  <!-- 蛋糕样式 -->
+  <view class="section">
+    <view class="section-label">1. 选一款蛋糕</view>
+    <scroll-view scroll-x="{{true}}" class="style-scroll" enhanced="{{true}}" show-scrollbar="{{false}}">
+      <view class="style-row">
+        <view
+          wx:for="{{styles}}"
+          wx:key="id"
+          class="style-item {{selectedStyleId === item.id ? 'selected' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="selectStyle"
+        >
+          <view class="style-emoji">{{item.decorEmoji}}</view>
+          <view class="style-name">{{item.name}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 蜡烛数量 & 颜色 -->
+  <view class="section">
+    <view class="section-label">2. 放几支蜡烛？</view>
+    <view class="candle-input">
+      <view class="stepper">
+        <view class="stepper-btn" bindtap="decCandle">−</view>
+        <view class="stepper-value">{{candleCount}}</view>
+        <view class="stepper-btn" bindtap="incCandle">+</view>
+      </view>
+      <view class="hint">范围 1–99，>20 自动变为数字蜡烛样式</view>
+    </view>
+    <view class="candle-colors">
+      <view
+        wx:for="{{candleColors}}"
+        wx:key="id"
+        class="color-dot {{selectedCandleColor === item.id ? 'selected' : ''}}"
+        style="background: {{item.value}};"
+        data-id="{{item.id}}"
+        bindtap="selectColor"
+      ></view>
+    </view>
+  </view>
+
+  <!-- 祝福信息 -->
+  <view class="section">
+    <view class="section-label">3. 写给TA的话</view>
+
+    <view class="form-row">
+      <view class="form-label">寿星昵称</view>
+      <input
+        class="form-input"
+        placeholder="写TA的小名吧，比如小鱼"
+        maxlength="20"
+        value="{{receiverNick}}"
+        bindinput="onInputNick"
+      />
+    </view>
+
+    <view class="form-row">
+      <view class="form-label">祝福语</view>
+      <textarea
+        class="form-textarea"
+        placeholder="想对TA说点什么呢？"
+        maxlength="200"
+        value="{{wishText}}"
+        bindinput="onInputWish"
+        auto-height
+      />
+      <view class="hint char-count">{{wishText.length}}/200</view>
+    </view>
+
+    <view class="form-row">
+      <view class="form-label">语音祝福（可选，最长 30 秒）</view>
+      <view class="voice-recorder">
+        <view
+          wx:if="{{!voicePath}}"
+          class="voice-btn {{isRecording ? 'recording' : ''}}"
+          bindtouchstart="startRecord"
+          bindtouchend="stopRecord"
+          bindtouchcancel="stopRecord"
+        >
+          <view class="voice-icon">🎙</view>
+          <view class="voice-text">{{isRecording ? '松开结束 ' + recordSec + '″' : '按住录音'}}</view>
+        </view>
+        <view wx:else class="voice-preview">
+          <view class="voice-info">
+            <text class="voice-icon">🎵</text>
+            <text>已录制 {{voiceDuration}}″</text>
+          </view>
+          <view class="voice-controls">
+            <view class="mini-btn" bindtap="playVoice">▶ 试听</view>
+            <view class="mini-btn danger" bindtap="clearVoice">删除</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 预览 -->
+  <view class="section">
+    <view class="section-label">4. 预览</view>
+    <view class="preview-box" style="background: linear-gradient(180deg, {{previewStyle.bgGradient[0]}} 0%, {{previewStyle.bgGradient[1]}} 100%);">
+      <view class="preview-nick">{{receiverNick || '寿星昵称'}}</view>
+      <view class="preview-cake">
+        <view class="preview-flames">
+          <view
+            wx:for="{{previewCandles}}"
+            wx:key="index"
+            class="preview-candle"
+            style="background: {{candleColor}};"
+          >
+            <view class="preview-flame"></view>
+          </view>
+        </view>
+        <view class="preview-top" style="background: {{previewStyle.topColor}};"></view>
+        <view class="preview-cream" style="background: {{previewStyle.creamColor}};"></view>
+        <view class="preview-base" style="background: {{previewStyle.baseColor}};">
+          <text class="preview-decor">{{previewStyle.decorEmoji}} {{previewStyle.decorEmoji}} {{previewStyle.decorEmoji}}</text>
+        </view>
+      </view>
+      <view wx:if="{{candleCount > 20}}" class="preview-age">🎂 {{candleCount}} 岁生日快乐</view>
+    </view>
+  </view>
+
+  <view class="cta-bar">
+    <button class="btn" bindtap="generateCake">🎂 生成蛋糕</button>
+  </view>
+</view>

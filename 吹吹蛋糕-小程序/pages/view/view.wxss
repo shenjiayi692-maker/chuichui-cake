@@ -1,0 +1,330 @@
+.view-page {
+  min-height: 100vh;
+  padding: 48rpx 32rpx 80rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.empty-state {
+  margin-top: 200rpx;
+  text-align: center;
+}
+
+.empty-emoji { font-size: 120rpx; margin-bottom: 24rpx; }
+.empty-title { font-size: 40rpx; font-weight: 700; color: var(--choco); }
+.empty-desc  { color: var(--muted); margin: 16rpx 0 48rpx; }
+
+/* 寿星名字 */
+.nick-wrap {
+  text-align: center;
+  margin-bottom: 56rpx;
+}
+.nick-prefix {
+  font-size: 28rpx;
+  color: var(--choco);
+  letter-spacing: 4rpx;
+}
+.nick {
+  font-size: 64rpx;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 8rpx;
+  font-family: "Huawei LiXingKai", "Kaiti SC", serif;
+}
+
+/* 蛋糕 */
+.cake {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 64rpx;
+  transition: transform 0.8s ease;
+}
+
+.view-page.revealed .cake {
+  transform: scale(0.55) translateY(-40rpx);
+}
+
+.flames {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 440rpx;
+  gap: 8rpx 10rpx;
+  margin-bottom: -4rpx;
+  position: relative;
+  z-index: 2;
+}
+
+.candle-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 16rpx;
+}
+
+.candle {
+  width: 12rpx;
+  height: 64rpx;
+  border-radius: 2rpx;
+}
+
+.flame {
+  width: 24rpx;
+  height: 32rpx;
+  background: radial-gradient(ellipse at center bottom, #FFF3A0 0%, #FFD166 40%, #FF7A3A 70%, transparent 85%);
+  border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+  margin-bottom: 2rpx;
+  animation: flicker 0.5s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+  box-shadow: 0 0 20rpx rgba(255, 183, 77, 0.7);
+}
+
+.flame.out {
+  animation: flameOut 0.5s ease forwards;
+}
+
+@keyframes flicker {
+  0%   { transform: scaleY(1) translateX(-1rpx); }
+  100% { transform: scaleY(1.15) translateX(1rpx); }
+}
+
+@keyframes flameOut {
+  0%   { opacity: 1; transform: scaleY(1) scaleX(1); }
+  60%  { opacity: 0.3; transform: scaleY(0.2) scaleX(0.5); }
+  100% { opacity: 0; transform: scaleY(0) scaleX(0); }
+}
+
+.smoke {
+  position: absolute;
+  top: -16rpx;
+  width: 12rpx;
+  height: 40rpx;
+  background: radial-gradient(circle, rgba(200,200,200,0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: smokeRise 2s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes smokeRise {
+  0%   { opacity: 0.6; transform: translateY(0) scale(0.6); }
+  100% { opacity: 0; transform: translateY(-80rpx) scale(1.4); }
+}
+
+/* 蛋糕层 */
+.top {
+  width: 380rpx;
+  height: 48rpx;
+  border-radius: 24rpx 24rpx 4rpx 4rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.cream {
+  width: 400rpx;
+  height: 20rpx;
+  border-radius: 10rpx;
+  margin-top: -8rpx;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4rpx 8rpx rgba(0,0,0,0.05);
+}
+
+.base {
+  width: 440rpx;
+  height: 140rpx;
+  border-radius: 8rpx 8rpx 16rpx 16rpx;
+  margin-top: -4rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(62, 39, 35, 0.15);
+}
+
+.decor {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 40rpx;
+  letter-spacing: 16rpx;
+}
+
+.age-badge {
+  position: absolute;
+  top: -40rpx;
+  right: -20rpx;
+  background: var(--primary);
+  color: #fff;
+  padding: 12rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 700;
+  transform: rotate(6deg);
+  box-shadow: 0 4rpx 12rpx rgba(255, 122, 138, 0.4);
+}
+
+/* 开始提示 */
+.start-hint {
+  text-align: center;
+  margin-top: 32rpx;
+}
+
+.start-emoji {
+  font-size: 72rpx;
+  margin-bottom: 16rpx;
+  animation: blowPuff 2s ease-in-out infinite;
+}
+
+@keyframes blowPuff {
+  0%, 100% { transform: translateX(0); opacity: 0.8; }
+  50%      { transform: translateX(12rpx); opacity: 1; }
+}
+
+.start-title {
+  font-size: 30rpx;
+  color: var(--choco);
+  margin-bottom: 32rpx;
+}
+
+.fallback-tip {
+  margin-top: 24rpx;
+}
+
+/* 吹气状态 */
+.blow-hint {
+  text-align: center;
+  width: 100%;
+  max-width: 560rpx;
+}
+
+.vu-meter {
+  width: 100%;
+  height: 16rpx;
+  background: rgba(62, 39, 35, 0.1);
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.vu-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #A8E6CF 0%, #FFD166 60%, #FF7A8A 100%);
+  border-radius: 8rpx;
+  transition: width 120ms ease;
+}
+
+.blow-text {
+  font-size: 28rpx;
+}
+
+.count {
+  color: var(--primary);
+  font-weight: 700;
+  margin-left: 12rpx;
+}
+
+.fallback-btn {
+  background: var(--primary);
+  color: #fff;
+  padding: 32rpx;
+  border-radius: 24rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  user-select: none;
+}
+
+.fallback-btn:active { opacity: 0.8; }
+
+/* 揭示 */
+.reveal {
+  width: 100%;
+  max-width: 560rpx;
+  text-align: center;
+  animation: revealIn 0.8s ease;
+}
+
+@keyframes revealIn {
+  0% { opacity: 0; transform: translateY(40rpx); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.reveal-confetti {
+  font-size: 48rpx;
+  letter-spacing: 12rpx;
+  margin-bottom: 24rpx;
+  animation: wiggle 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes wiggle {
+  0%   { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+.reveal-text {
+  font-size: 34rpx;
+  line-height: 1.7;
+  color: var(--choco);
+  padding: 24rpx 16rpx;
+  font-family: "Huawei LiXingKai", "Kaiti SC", serif;
+  white-space: pre-wrap;
+}
+
+.reveal-voice {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
+  background: var(--cream);
+  border-radius: 20rpx;
+  margin: 24rpx 0;
+}
+
+.voice-play {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+.voice-play.playing { animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+.voice-label {
+  text-align: left;
+  flex: 1;
+  font-size: 28rpx;
+  color: var(--choco);
+}
+
+.reveal-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+.reveal-actions .btn { flex: 1; font-size: 28rpx; padding: 20rpx 0; }
+
+button.btn {
+  padding: 20rpx 0;
+  line-height: 1.2;
+  border-radius: 999rpx;
+}
+button.btn::after { border: none; }
+
+.preview-tip { margin-top: 24rpx; font-size: 22rpx; }
+
+/* 离屏 canvas */
+.off-canvas {
+  position: fixed;
+  top: -10000rpx;
+  left: -10000rpx;
+  pointer-events: none;
+}

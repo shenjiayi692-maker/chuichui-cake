@@ -1,0 +1,42 @@
+<view class="container index">
+  <view class="hero">
+    <view class="hero-cake">🎂</view>
+    <view class="title">吹吹蛋糕</view>
+    <view class="subtitle">不在身边，也能吹灭TA的生日蜡烛</view>
+  </view>
+
+  <view class="quick-card card">
+    <view class="quick-title">把祝福装进蛋糕里</view>
+    <view class="quick-desc">
+      写下想对TA说的话，录一段语音，生成一个能"对着屏幕吹"的小蛋糕 —— 让TA在生日当天收到一份只属于ta的惊喜。
+    </view>
+    <view class="quick-actions">
+      <button class="btn" bindtap="goCreate">为TA做一个 🎂</button>
+      <button class="btn btn-ghost" bindtap="goMine">看我做过的</button>
+    </view>
+  </view>
+
+  <view wx:if="{{recentCakes.length > 0}}" class="recent">
+    <view class="section-title">我最近送出的</view>
+    <view class="recent-list">
+      <view
+        wx:for="{{recentCakes}}"
+        wx:key="id"
+        class="recent-item card"
+        data-id="{{item.id}}"
+        bindtap="openCake"
+      >
+        <view class="recent-emoji">{{item.styleEmoji}}</view>
+        <view class="recent-meta">
+          <view class="recent-name">给 {{item.receiverNick}}</view>
+          <view class="recent-date">{{item.createdAtText}}</view>
+        </view>
+        <view class="recent-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footnote hint">
+    🔒 所有祝福仅保存在你本机，重装小程序会丢失。
+  </view>
+</view>

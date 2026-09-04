@@ -1,0 +1,78 @@
+/* 全局样式 */
+page {
+  --primary: #FF7A8A;
+  --cream: #FFD5CC;
+  --choco: #3E2723;
+  --bg: #FFF6F2;
+  --ink: #2A2A2A;
+  --muted: #8A8A8A;
+  --accent: #FFD166;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+               "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+.container {
+  padding: 40rpx 32rpx;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22rpx 48rpx;
+  border-radius: 999rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 12rpx 32rpx rgba(255, 122, 138, 0.35);
+  transition: transform 120ms ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--primary);
+  border: 2rpx solid var(--primary);
+  box-shadow: none;
+}
+
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 8rpx 24rpx rgba(62, 39, 35, 0.06);
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: var(--choco);
+  letter-spacing: 1rpx;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 26rpx;
+  margin-top: 8rpx;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 24rpx;
+}
+
+.divider {
+  height: 2rpx;
+  background: rgba(62, 39, 35, 0.08);
+  margin: 32rpx 0;
+}
