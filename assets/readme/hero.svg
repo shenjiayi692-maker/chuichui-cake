@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Chui Chui Cake</title>
+  <desc id="desc">A playful birthday cake with microphone waves extinguishing candles before a hidden wish is revealed.</desc>
+  <defs><linearGradient id="night" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#261d48"/><stop offset="1" stop-color="#562a58"/></linearGradient></defs>
+  <rect width="1200" height="420" rx="30" fill="url(#night)"/>
+  <circle cx="1055" cy="70" r="98" fill="#7c3f6e" opacity=".28"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <text x="66" y="74" fill="#ffcf76" font-size="18" font-weight="800" letter-spacing="3">WECHAT MINI PROGRAM</text>
+    <text x="66" y="154" fill="#fff9f1" font-size="66" font-weight="800">Chui Chui Cake</text>
+    <text x="66" y="202" fill="#f5d9e4" font-size="25">Blow out the candles. Unwrap the wish.</text>
+    <g transform="translate(66 264)" font-size="18">
+      <circle cx="12" cy="12" r="12" fill="#ff8ca6"/><text x="34" y="19" fill="#f7edf4">real microphone interaction</text>
+      <circle cx="12" cy="57" r="12" fill="#ffcf76"/><text x="34" y="64" fill="#f7edf4">voice + text reveal</text>
+      <circle cx="12" cy="102" r="12" fill="#8be0d1"/><text x="34" y="109" fill="#f7edf4">cross-device sharing</text>
+    </g>
+  </g>
+  <g transform="translate(718 30)">
+    <path d="M-78 174 C-28 134 10 134 53 174" fill="none" stroke="#8be0d1" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-44 192 C-15 169 12 169 41 192" fill="none" stroke="#8be0d1" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-12 211 C3 200 18 200 32 211" fill="none" stroke="#8be0d1" stroke-width="7" stroke-linecap="round"/>
+    <g transform="translate(108 0)">
+      <g fill="#ffcf76">
+        <path d="M24 78 C5 60 14 40 28 27 C36 45 50 61 24 78Z"/>
+        <path d="M94 78 C75 60 84 40 98 27 C106 45 120 61 94 78Z"/>
+        <path d="M164 78 C145 60 154 40 168 27 C176 45 190 61 164 78Z"/>
+      </g>
+      <g fill="#ff8ca6"><rect x="19" y="72" width="18" height="88" rx="7"/><rect x="89" y="72" width="18" height="88" rx="7"/><rect x="159" y="72" width="18" height="88" rx="7"/></g>
+      <ellipse cx="98" cy="173" rx="166" ry="48" fill="#ffd6de"/>
+      <rect x="-68" y="173" width="332" height="116" rx="26" fill="#ff8ca6"/>
+      <path d="M-68 194 C-25 170 3 218 48 190 C88 165 119 216 164 191 C202 169 229 195 264 179 V219 C228 239 204 212 166 235 C119 260 91 209 48 234 C7 259 -26 215 -68 241Z" fill="#fff1e2"/>
+      <rect x="-90" y="271" width="376" height="55" rx="26" fill="#d05f80"/>
+      <g fill="#fff1e2"><circle cx="-10" cy="277" r="9"/><circle cx="82" cy="295" r="9"/><circle cx="186" cy="277" r="9"/></g>
+    </g>
+    <g transform="translate(362 312)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+      <rect x="-88" width="202" height="48" rx="24" fill="#fff9f1"/>
+      <text x="13" y="31" text-anchor="middle" fill="#522849" font-size="17" font-weight="750">wish unlocked ✦</text>
+    </g>
+  </g>
+</svg>

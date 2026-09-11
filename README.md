@@ -1,56 +1,69 @@
-# 吹吹蛋糕 · Chui Chui Cake 🎂
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="Chui Chui Cake lets a birthday recipient blow out virtual candles to reveal a message">
+</p>
 
-> 朋友生日当天你不在身边？送 TA 一块**可以对着手机屏幕吹灭蜡烛**的蛋糕。
+<p align="center"><strong>A birthday message that waits for the candles to go out.</strong></p>
 
-一个微信小程序：你挑蛋糕样式、插上蜡烛、录一段语音祝福，分享给寿星；对方打开链接，**对着麦克风吹气**把蜡烛一根根吹灭，全灭后才解锁你的祝福。
+Chui Chui Cake is a WeChat Mini Program for long-distance birthday wishes. Choose a cake, add candles, write or record a message, and share it. The recipient blows toward the phone microphone; each detected breath extinguishes candles, and the message is revealed only when the last flame disappears.
 
-| | |
-|---|---|
-| 形态 | 微信小程序 + 微信云开发（CloudBase） |
-| 前端 | 原生 WXML / WXSS / JS，蛋糕与火焰全部 CSS 绘制，无图片素材 |
-| 后端 | 7 个云函数 + 云数据库 `cakes` + 云存储（语音 mp3） |
-| 核心交互 | 实时 PCM 录音 → RMS 能量检测吹气；权限被拒时降级为长按 |
-| 分享 | `onShareAppMessage` / `onShareTimeline` 携带 cakeId，真正跨设备可看 |
-| 状态 | v1.1，功能完整可跑；未做内容安全审核与过期清理（见路线图） |
-
-## 核心技术：怎么判断"有人在吹"
-
-`utils/blow-detector.js`：
-
-1. `wx.getRecorderManager()` 起 8 kHz / 16-bit / 单声道 PCM 实时录音
-2. `onFrameRecorded` 每 ~32 ms 回一帧，算这帧的 **RMS 能量**（归一化到 0–1）
-3. 连续 **3 帧**超过阈值 `0.08` 才判定为一次有效吹气 —— 用持续性把吹气和瞬时噪音分开
-4. 触发后 **250 ms 冷却**，避免一口气被算成好几次
-
-没有上 FFT 低频占比判定（PRD §6.3.1 里设计过）：MVP 阶段实测纯 RMS 已能约 95% 区分吹气与说话声，FFT 的功耗和复杂度换不回等量收益。真出现"说话也能吹灭"的投诉再加。
-
-阈值、持续帧数、冷却时间都是构造参数，可按机型调：
-
-```javascript
-new BlowDetector({ rmsThreshold: 0.05, sustainFrames: 2, cooldownMs: 200 });
-```
-
-> ⚠️ 吹蜡烛**必须真机测试**。开发者工具模拟器读不到真实麦克风，会自动走长按降级模式。
-
-## 目录
+## The moment
 
 ```text
-吹吹蛋糕-小程序/        小程序本体（页面、云函数、吹气检测）
-  └── README.md         完整的运行与云开发配置指南（含常见问题排查）
-虚拟生日蛋糕 微信小程序 PRD.md   原始产品需求文档
+choose a cake → add a message → share a link → blow out candles → reveal the wish
 ```
 
-## 怎么跑起来
+- Six CSS-drawn cake themes and five candle colors—no image bundle required
+- 1–99 candles, with a compact visual treatment above 20
+- Optional voice wish up to 30 seconds
+- Cross-device sharing through a CloudBase-backed `cakeId`
+- Text and voice reveal, plus a locally rendered keepsake card
+- Press-and-hold fallback when microphone permission is unavailable
 
-云开发需要**真实 AppID**（测试号不支持），并且要手动开通环境、建集合、部署云函数。完整五步见
-**[`吹吹蛋糕-小程序/README.md` §2](吹吹蛋糕-小程序/README.md)** —— 那份文档还带了一份按报错信息索引的排查表。
+## How breath detection works
 
-`app.js` 里的 `env: 'YOUR_ENV_ID'` 是占位符，换成你自己的云开发环境 ID。
+[`blow-detector.js`](./吹吹蛋糕-小程序/utils/blow-detector.js) records 8 kHz, 16-bit mono PCM frames with `wx.getRecorderManager()`. For each frame it computes normalized RMS energy:
 
-## 已知未做
+```text
+rms = sqrt(sum(sample²) / sample_count)
+```
 
-内容安全审核（`security.msgSecCheck`）、过期蛋糕定时清理、合照上传（`cloud.js` 里 `uploadPhoto` 存根已写、UI 未接）、订阅消息回礼。理由和优先级见子 README §9。
+A blow is registered after three consecutive frames cross the default `0.08` threshold. A 250 ms cooldown prevents one breath from being counted repeatedly. Each accepted event extinguishes one to three remaining candles and triggers light haptic feedback.
 
-## 许可
+```javascript
+new BlowDetector({
+  rmsThreshold: 0.05,
+  sustainFrames: 2,
+  cooldownMs: 200
+});
+```
 
-MIT，见 [LICENSE](LICENSE)。
+> Microphone behavior must be tested on a physical device. WeChat DevTools cannot provide real microphone frames and therefore exercises the press-and-hold fallback.
+
+## Run the Mini Program
+
+1. Install WeChat DevTools and import [`吹吹蛋糕-小程序/`](./吹吹蛋糕-小程序/).
+2. Use a real Mini Program AppID; CloudBase does not work with the test account.
+3. Create a CloudBase environment and replace `YOUR_ENV_ID` in `app.js`.
+4. Create the `cakes` collection, readable by recipients but writable only through the owner-aware backend flow. Create the optional `events` collection for analytics.
+5. Deploy all seven folders under `cloudfunctions/` with cloud-side dependency installation.
+6. Preview on a phone, create a cake, share it, and blow out the candles.
+
+The detailed setup and troubleshooting guide is in the [Mini Program README](./吹吹蛋糕-小程序/README.md).
+
+## Architecture
+
+| Layer | What it does |
+| --- | --- |
+| Native WXML / WXSS / JS | Builds the creator, cake, reveal, history, and sharing flows |
+| PCM + RMS detector | Turns sustained microphone energy into discrete blow events |
+| Seven cloud functions | Create, read, list, delete, track, record completion, and resolve identity |
+| Cloud database and storage | Persists cake metadata and optional voice recordings |
+| Offscreen canvas | Produces a 750 × 1334 keepsake image for the photo album |
+
+## Current boundary
+
+Version 1.1 is a runnable product prototype, but it is not ready for an unrestricted public launch. Content safety checks, automatic expiry cleanup, photo upload UI, subscription notifications, and recipient reactions remain on the roadmap. The database records an expiry timestamp; no scheduled deletion currently enforces it.
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
