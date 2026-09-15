@@ -2,7 +2,15 @@
   <img src="./assets/readme/hero.svg" width="100%" alt="Chui Chui Cake lets a birthday recipient blow out virtual candles to reveal a message">
 </p>
 
-<p align="center"><strong>A birthday message that waits for the candles to go out.</strong></p>
+<p align="center"><strong>English</strong> · <a href="./README.zh-CN.md">中文</a></p>
+
+> Not there on your friend's birthday? Send them a cake whose candles they blow
+> out by breathing at their phone — and the message only appears once the last
+> flame is gone.
+
+There is no one-line quickstart for this one: CloudBase needs a real AppID and a
+hand-provisioned environment, and the microphone only works on a physical device.
+The five setup steps are below.
 
 Chui Chui Cake is a WeChat Mini Program for long-distance birthday wishes. Choose a cake, add candles, write or record a message, and share it. The recipient blows toward the phone microphone; each detected breath extinguishes candles, and the message is revealed only when the last flame disappears.
 
